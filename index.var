@@ -1,0 +1,10 @@
+URI: iban.html
+Content-Type: text/html
+Content-Language: en
+
+URI: iban.de.html
+Content-Type: text/html
+Content-Language: de
+
+URI: iban.html
+Content-Type: text/html; qs=0.1

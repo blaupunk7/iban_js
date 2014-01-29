@@ -1,0 +1,738 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+ <title>IBAN - Die Internationale Kontonummer</title>
+ <link rel="shortcut icon" href="http://www.toms-cafe.de/favicon.ico" />
+ <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+ <meta name="author" content="Thomas G&uuml;nther (toms-cafe.de)" />
+ <meta name="description"
+       content="Erzeugen/&uuml;berpr&uuml;fen von Internationalen Kontonummern" />
+ <meta name="keywords"
+       content="IBAN-Rechner, IBAN-Validierer, JavaScript, GNU, GPL" />
+ <!--
+  This GPL program comes with ABSOLUTELY NO WARRANTY; this is
+  free software and you are welcome to redistribute it under
+  certain conditions; see the copyleft below for details.
+ -->
+ <script src="iban.js" type="text/javascript" language="JavaScript"></script>
+ <script src="iban.de.js" type="text/javascript" language="JavaScript"></script>
+</head>
+
+<body bgcolor="#EEFFEE" link="#009911" vlink="#226644" alink="#00CC33">
+ <table width="100%" cellpadding="0" cellspacing="0">
+  <tr>
+   <th width="40">
+    <a href="iban.html">
+     <img src="../img/english.gif" width="40" height="26" border="0" alt=""
+     /></a
+    >
+    <a href="iban.html"><font size="-2">English</font></a>
+   </th>
+   <th><h1>IBAN - Die Internationale Kontonummer</h1></th>
+   <th width="64">
+    <a href="http://www.toms-cafe.de/kitty/kitty.de.html">
+     <img src="../img/coffeemill.gif" width="64" height="64" border="0"
+          title="Kaffeekasse" alt="Kaffeekasse"
+     /></a
+    >
+   </th>
+   <th width="64">
+    <a href="http://www.toms-cafe.de/index.de.html">
+     <img src="../img/toms-cafe.gif" width="64" height="64" border="0"
+          title="Toms Caf&eacute;" alt="Toms Caf&eacute;"
+     /></a
+    >
+   </th>
+  </tr>
+ </table>
+
+ <!-- Introduction -->
+ <p>
+  Auf dieser Webseite k&ouml;nnen
+  <i>Internationale Kontonummern</i>
+  (IBAN/International Bank Account Number) erzeugt und &uuml;berpr&uuml;ft
+  werden.
+  Die Berechnungen f&uuml;hrt ein
+  <a href="http://web.archive.org/web/20040929030222/http://devedge.netscape.com/central/javascript/">
+   JavaScript</a
+  >-Programm
+  auf dem lokalen Rechner aus.
+  Es werden keine pers&ouml;nlichen Daten durch das Internet geschickt.
+ </p>
+ <p>
+  Die Informationen &uuml;ber die IBAN stammen vom
+  <a href="http://web.archive.org/web/20080209235602/http://www.ecbs.org/iban.htm">
+   ECBS</a
+  >
+  (European Committee for Banking Standards) und der
+  <a href="http://www.swift.com/solutions/messaging/information_products/directory_products/iban_format_registry/">
+   IBAN-Registrierungsstelle</a
+  >
+  bei SWIFT.
+  IBAN ist ein
+  <a href="http://www.iso.org">ISO</a>-Standard
+  (ISO 13616: 1997).
+ </p>
+
+ <!-- Disclaimer -->
+ <hr size="4" />
+ <font size="-1">
+  <b>iban.de.html &amp; iban.js &amp; iban.de.js 1.5</b>
+  &copy;&nbsp;<a href="#logbook">2002-2010</a>,
+  <a href="http://www.toms-cafe.de/Thomas.Guenther.html">Thomas G&uuml;nther</a>
+  <br />
+  F&uuml;r dieses
+  <a href="http://www.gnu.org/copyleft/gpl.html">GPL</a>-Programm
+  besteht KEINERLEI GARANTIE; dies ist freie Software, die unter
+  bestimmten Bedingungen weitergegeben werden darf; Details im
+  <a href="#copyleft">Copyleft</a>.
+ </font>
+
+ <!-- Form with description -->
+ <hr size="4" />
+ <h2>Erzeugen oder &Uuml;berpr&uuml;fen von Internationalen Kontonummern</h2>
+ <table border="0" width="100%" cellspacing="0" cellpadding="0">
+  <tr>
+   <td bgcolor="#11CC66">
+    <form name="ibanform" action="javascript:return" method="get">
+     <table width="100%" align="center">
+      <tr>
+       <td align="center">
+        <noscript>
+         <font color="#FF0000">
+          <b>Sorry, dieses Programm ben&ouml;tigt JavaScript!</b>
+         </font>
+        </noscript>
+       </td>
+      </tr>
+      <tr>
+       <td>
+        <table bgcolor="#99FFCC" border="4" width="100%" align="left">
+         <tr>
+          <td align="center">
+           Land
+           <br />
+           <script type="text/javascript" language="JavaScript">
+           <!--
+            WriteCountrySelectionBar();
+           //-->
+           </script>
+           <noscript>
+            <select name="country" size="1">
+             <option value=""></option>
+            </select>
+           </noscript>
+          </td>
+          <td align="center">
+           Bankleitzahl
+           <br />
+           <input name="bank" type="text" size="11" maxlength="11" />
+          </td>
+          <td align="center">
+           Kontonummer
+           <br />
+           <input name="account" type="text" size="22" maxlength="22" />
+          </td>
+         </tr>
+        </table>
+       </td>
+      </tr>
+      <tr>
+       <td>
+        <table width="100%">
+         <tr>
+          <td align="center" valign="bottom" width="45%">
+           <a href="javascript:CreateIBAN()">
+            <img src="create.de.png" width="160" height="32" border="3"
+                 alt="IBAN erzeugen"
+            /></a
+           >
+          </td>
+          <td align="center" valign="top">
+           <img name="bban_img" src="blank.png" width="24" height="24"
+                border="0" alt=""
+           />
+          </td>
+          <td align="center" valign="bottom" width="45%">
+           <img src="arrow_u.png" width="21" height="30" border="0" alt="" />
+          </td>
+         </tr>
+         <tr>
+          <td align="center" valign="top">
+           <img src="arrow_d.png" width="21" height="30" border="0" alt="" />
+          </td>
+          <td align="center" valign="bottom">
+           <img name="iban_img" src="blank.png" width="24" height="24"
+                border="0" alt=""
+           />
+          </td>
+          <td align="center" valign="top">
+           <a href="javascript:CheckIBAN()">
+            <img src="check.de.png" width="160" height="32" border="3"
+                 alt="IBAN &uuml;berpr&uuml;fen"
+            /></a
+           >
+          </td>
+         </tr>
+        </table>
+       </td>
+      </tr>
+      <tr>
+       <td>
+        <table bgcolor="#99FFCC" border="4" width="100%">
+         <tr>
+          <td align="center">
+           Internationale Kontonummer (IBAN)
+           <br />
+           <input name="iban" type="text" size="39" maxlength="47" />
+          </td>
+         </tr>
+        </table>
+       </td>
+      </tr>
+      <tr>
+       <td align="center">
+        <a href="#alternative" style="text-decoration:none">
+         <input name="alt_iban" type="text" readonly="readonly"
+                size="39" maxlength="51"
+                style="background-color:#11CC66; border-style:none"
+          />
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <td align="center">
+        <table bgcolor="#EEFFEE" border="0">
+         <tr>
+          <td align="center">
+           <a href="http://web.archive.org/web/20080209235602/http://www.ecbs.org/iban.htm#warning"
+              style="text-decoration:none; color:#FF0000">
+            <b>Achtung!</b>
+            <br />
+            Bankleitzahlen und Kontonummern werden
+            <br />
+            NICHT auf Validit&auml;t und Existenz gepr&uuml;ft!
+            <br />
+            Offizielle IBAN-Generierung oder Validierung
+            <br />
+            nur durch die zust&auml;ndigen Banken!
+           </a>
+          </td>
+         </tr>
+        </table>
+       </td>
+      </tr>
+     </table>
+    </form>
+   </td>
+   <td width="11" valign="top"
+       style="background-image:url(shade_r.png); background-repeat:repeat-y">
+    <img src="shade_ru.png" width="11" height="25" alt="" />
+   </td>
+  </tr>
+  <tr>
+   <td height="25"
+       style="background-image:url(shade_d.png); background-repeat:repeat-x">
+    <img src="shade_ld.png" width="11" height="25" alt="" /></td
+   >
+   <td><img src="shade_rd.png" width="11" height="25" alt="" /></td>
+  </tr>
+ </table>
+ <p>
+  Die IBAN setzt sich zusammen aus dem
+  <i>L&auml;nder-Code</i>
+  <a href="http://www.iso.org">(ISO 3166)</a>,
+  einer
+  <i>Pr&uuml;fsumme</i>
+  mit 2 Ziffern und der
+  <i>Basis-Kontonummer</i>
+  (BBAN/Basic Bank Account Number, ISO 13616).
+ </p>
+ <p>
+  Die BBAN besteht aus einer
+  <i>Bankleitzahl</i>
+  und der
+  <i>Kontonummer</i>,
+  beide mit optionalen Pr&uuml;fziffern.
+  Die genaue Struktur ist l&auml;nderspezifisch.
+  Details stehen unten in der
+  <a href="#format">Format-Tabelle</a>.
+ </p>
+ <p>
+  Zur Erzeugung einer IBAN muss zuerst das Land ausgew&auml;hlt sowie
+  Bankleitzahl und Kontonummer eingegeben werden.
+  Die IBAN wird dann bei Bet&auml;tigung des Buttons mit der Aufschrift
+  "IBAN erzeugen" im IBAN-Feld ausgegeben.
+ </p>
+ <p>
+  Zur &Uuml;berpr&uuml;fung einer IBAN muss sie in das IBAN-Feld eingegeben und
+  dann der Button mit der Aufschrift "IBAN &uuml;berpr&uuml;fen" bet&auml;tigt
+  werden.
+  Wenn die IBAN in Ordnung ist, werden das Land, die Bankleitzahl und die
+  Kontonummer in den entsprechenden Feldern ausgegeben.
+ </p>
+ <p>
+  Ist eine Eingabe nicht korrekt, dann wird eine Meldung angezeigt und der
+  Inhalt der Ziel-Felder der Aktion gel&ouml;scht.
+ </p>
+ <p>
+  Beispiele Internationaler Kontonummern kann man sich unten in der
+  <a href="#examples">Beispiel-Tabelle</a>
+  ansehen.
+  F&uuml;r jedes Land gibt es dort ein Beispiel.
+ </p>
+
+ <!-- Alternative IBAN -->
+ <a id="alternative" name="alternative"></a>
+ <h3>Alternativen f&uuml;r bestimmte IBAN (*)</h3>
+ <p>
+  Bei den Checksummen 97 und 98 gibt es eine m&ouml;gliche alternative IBAN.
+  Sie enth&auml;lt die Checksumme 00 statt 97 bzw. 01 statt 98.
+  Beide Checksummen werden als korrekt validiert.
+  Es h&auml;ngt von der zust&auml;ndigen Bank ab,
+  welche der beiden die offizielle ist.
+ </p>
+ <p>
+  Alternative IBAN mit den Checksummen 00 und 01 sind eher un&uuml;blich.
+  In den meisten F&auml;llen werden die Checksummen 97 und 98 verwendet.
+ </p>
+
+ <!-- Table with country specific iban format -->
+ <hr size="4" />
+ <a id="format" name="format"></a>
+ <h2>L&auml;nderspezifisches Format der Internationalen Kontonummern</h2>
+ <script type="text/javascript" language="JavaScript">
+ <!--
+  WriteCountryFormatTable();
+ //-->
+ </script>
+ <noscript>
+  <font color="#FF0000">
+   <b>Sorry, dieses Programm ben&ouml;tigt JavaScript!</b>
+  </font>
+ </noscript>
+
+ <!-- Table with an example for each country -->
+ <hr size="4" />
+ <a id="examples" name="examples"></a>
+ <h2>Beispiele f&uuml;r Internationale Kontonummern</h2>
+ <script type="text/javascript" language="JavaScript">
+ <!--
+  WriteExampleTestTable();
+ //-->
+ </script>
+ <noscript>
+  <font color="#FF0000">
+   <b>Sorry, dieses Programm ben&ouml;tigt JavaScript!</b>
+  </font>
+ </noscript>
+
+ <!-- Download -->
+ <hr size="4" />
+ <a id="download" name="download"></a>
+ <h2>Download</h2>
+ <p>
+  Hier k&ouml;nnen zwei Versionen des IBAN-Programms heruntergeladen werden:
+ </p>
+ <ul>
+  <li>
+   <a href="iban.js" type="text/plain">iban.js</a>
+   &amp;
+   <a href="iban.de.js" type="text/plain">iban.de.js</a>
+   - die
+   <a href="http://web.archive.org/web/20040929030222/http://devedge.netscape.com/central/javascript/">
+    JavaScript</a
+   >-Version,
+   die auf dieser Webseite verwendet wird, und
+  </li>
+  <li>
+   <a href="iban.py">iban.py</a>
+   - ein
+   <a href="http://www.python.org">Python</a>-Kommandozeilen-Programm
+   (nur in Englisch).
+  </li>
+ </ul>
+ <p>
+  Oder gleich das ganze Paket:
+ </p>
+ <ul>
+  <li>
+   <a href="iban-1.5.zip">iban-1.5.zip</a>
+   - ein Zip-Archiv mit allen IBAN-Dateien (inklusive Bilder).
+  </li>
+  <li>
+   <a href="iban-1.5.zip.asc">iban-1.5.zip.asc</a>
+   (Die Signatur kann mit meinem OpenPGP-Schl&uuml;ssel
+   <a href="http://www.toms-cafe.de/Thomas.Guenther.html#publickey">
+    0xEC0E954C</a
+   >
+   &uuml;berpr&uuml;ft werden.)
+  </li>
+ </ul>
+
+ <!-- Links -->
+ <hr size="4" />
+ <h2>Links</h2>
+ <ul>
+  <li>
+   <a href="http://web.archive.org/web/20080209235602/http://www.ecbs.org/iban.htm">
+    IBAN-Informationen vom ECBS (European Committee for Banking Standards)</a
+   >
+  </li>
+  <li>
+   <a href="http://www.swift.com/solutions/messaging/information_products/directory_products/iban_format_registry/">
+    IBAN Registrierungsstelle bei SWIFT</a
+   >
+  </li>
+  <li>
+   <a href="http://www.iso.org">
+    ISO - Internationale Organisation f&uuml;r Standardisierung</a
+   >
+  </li>
+  <li>
+   <a href="http://de.wikipedia.org/wiki/International_Bank_Account_Number">
+    IBAN-Informationen in Wikipedia</a
+   >
+  </li>
+  <li>
+   <a href="http://www.iban.de/was_ist_iban.html">
+    Informationen &uuml;ber IBAN</a
+   >
+   (in Deutsch)
+  </li>
+ </ul>
+
+ <!-- Derivatives -->
+ <hr size="4" />
+ <h2>Ableitungen</h2>
+ <ul>
+  <li>
+   <a href="http://www.iban-rechner.eu/ibancalculator/iban.de.html">
+    iban-rechner.eu</a
+   >
+   (nicht aktuell)
+  </li>
+  <li>
+   <a href="http://ibanconverter.eu/">ibanconverter.eu</a>
+   (Lizenz/Copyright entfernt, nicht aktuell)
+  </li>
+  <li>
+   <a href="http://www.simong.net/iban/iban.html">simong.net</a>
+  </li>
+  <li>
+   <a href="http://www.meinbiz.at/tools/iban-nummer/">meinbiz.at</a>
+   (nicht aktuell)
+  </li>
+ </ul>
+
+ <!-- Logbook -->
+ <hr size="4" />
+ <a id="logbook" name="logbook"></a>
+ <h2>Logbuch</h2>
+
+ <p>2002-07-21: Version 0.1</p>
+ <ul>
+  <li>Start-Version</li>
+ </ul>
+
+ <p>2003-04-20: Version 0.2</p>
+ <ul>
+  <li>Globalisierung von iban.html/iban.js</li>
+  <li>Deutsche Version iban.de.html/iban.de.js hinzugef&uuml;gt</li>
+  <li>Sortierung nach sprachunabh&auml;ngigen L&auml;nder-Codes</li>
+  <li>
+   Warnung hinzugef&uuml;gt, dass nur die zust&auml;ndigen Banken
+   IBAN-Generierung oder Validierung offiziell durchf&uuml;hren k&ouml;nnen
+  </li>
+  <li>L&auml;nder in der Auswahlliste mit L&auml;nder-Codes anzeigen</li>
+  <li>IBAN im Druck-Format anzeigen (IBAN XXXX XXXX ...)</li>
+  <li>Links-Sektion hinzugef&uuml;gt</li>
+ </ul>
+
+ <p>2003-11-25: Version 0.3</p>
+ <ul>
+  <li>
+   Download des kompletten Pakets als Zip-Archiv mit allen IBAN-Dateien
+   (inklusive Bilder) hinzugef&uuml;gt
+  </li>
+  <li>
+   Format des Kontonummern-Teils vereinfacht (Typ und Ident sind nun in Nummer
+   enthalten)
+  </li>
+  <li>
+   BBAN-Daten und Beispiele aktualisiert entsprechend TR201 v2.2.29
+   (October 2003)
+   <ul>
+    <li>
+     neue L&auml;nder: Andorra (AD), Tschechien (CZ), F&auml;r&ouml;er (FO),
+     Gibraltar (GI), Gr&ouml;nland (GL), Ungarn (HU), Liechtenstein (LI),
+     Lettland (LV), Monaco (MC), Slowenien (SI), San Marino (SM)
+    </li>
+    <li>Beispiel ge&auml;ndert: Belgien, Italien</li>
+   </ul>
+  </li>
+  <li>Verwendbarkeit von iban.py als Modul verbessert</li>
+ </ul>
+
+ <p>2006-05-15: Version 0.4</p>
+ <ul>
+  <li>
+   BBAN-Daten und Beispiele aktualisiert entsprechend TR201 v3.17 (March 2006)
+   <ul>
+    <li>
+     neue L&auml;nder: Bosnien und Herzegowina (BA), Serbien und Montenegro
+     (CS),  Zypern (CY), Estland (EE), Kroatien (HR), Litauen (LT), Ehemalige
+     Jugoslawische Republik Mazedonien (MK), Malta (MT), Rum&auml;nien (RO),
+     Slowakische Republik (SK), Tunesien (TN), T&uuml;rkei (TR)
+    </li>
+    <li>BBAN-Daten ge&auml;ndert: Ungarn, Polen</li>
+    <li>Beispiel ge&auml;ndert: Liechtenstein</li>
+   </ul>
+  </li>
+ </ul>
+
+ <p>2006-12-31: Version 0.5</p>
+ <ul>
+  <li>
+   BBAN-Daten und Beispiele aktualisiert entsprechend TR201 v3.21
+   (November 2006)
+   <ul>
+    <li>neue L&auml;nder: Bulgarien (BG), Mauritius (MU)</li>
+   </ul>
+  </li>
+  <li>
+   Alphabetische Sortierung der L&auml;nder in Auswahlliste und Format-Tabelle
+  </li>
+  <li>Externe Links aktualisiert</li>
+ </ul>
+
+ <p>2007-03-13: Version 0.6</p>
+ <ul>
+  <li>
+   BBAN-Daten und Beispiele aktualisiert entsprechend TR201 v3.23
+   (February 2007)
+   <ul>
+    <li>
+     Serbien und Montenegro (CS) aufgeteilt in Montenegro (ME) und Serbien (RS)
+    </li>
+    <li>BBAN-Daten ge&auml;ndert: Estland</li>
+   </ul>
+  </li>
+  <li>
+   Workaround f&uuml;r IE7-Bug (Eingabe-Felder nicht anw&auml;hlbar falls
+   umflie&szlig;ender Text links oder rechts des Formulars)
+  </li>
+  <li>FSF-Adresse in Lizenz-Information aktualisiert</li>
+  <li>Logbuch-Sektion hinzugef&uuml;gt</li>
+ </ul>
+
+ <p>2007-04-30: Version 0.7</p>
+ <ul>
+  <li>IBAN-Formular auf Seiten-Breite ausgedehnt</li>
+  <li>Link zur offiziellen IBAN-Warnung hinzugef&uuml;gt</li>
+  <li>Keywords in HTML-Headers verbessert</li>
+ </ul>
+
+ <p>2008-08-31: Version 0.8</p>
+ <ul>
+  <li>
+   BBAN-Daten und Beispiele aktualisiert entsprechend IBAN Registry Version 10
+   (August 2008) von
+   <a href="http://www.swift.com">www.swift.com</a>
+   <ul>
+    <li>neue L&auml;nder: Israel (IL), Saudi-Arabien (SA)</li>
+    <li>BBAN-Daten ge&auml;ndert: Estland, Island</li>
+    <li>
+     Beispiel ge&auml;ndert: Monaco, Mazedonien, Polen, Schweden, San Marino,
+     Tunesien
+    </li>
+   </ul>
+  </li>
+  <li>
+   Standard-Zeichentyp ge&auml;ndert von &quot;an&quot; nach &quot;c&quot;:
+   gro&szlig;e und kleine alphanumerische Zeichen (A-Z, a-z und 0-9)
+  </li>
+  <li>Behandlung von Kleinbuchstaben korrigiert</li>
+  <li>
+   Deutsche &Uuml;bersetzung von &quot;United Kingdom&quot; ge&auml;ndert in
+   &quot;Vereinigtes K&ouml;nigreich&quot;
+  </li>
+  <li>Externe Links aktualisiert</li>
+ </ul>
+
+ <p>2009-06-30: Version 0.9</p>
+ <ul>
+  <li>
+   BBAN-Daten und Beispiele aktualisiert entsprechend IBAN Registry Version 13
+   (April 2009) von
+   <a href="http://www.swift.com">www.swift.com</a>
+   <ul>
+    <li>neues Land: Albanien (AL)</li>
+   </ul>
+  </li>
+  <li>Sektion Ableitungen hinzugef&uuml;gt</li>
+  <li>
+   Test auf numerische Checksumme zu iban.py hinzugef&uuml;gt
+   (Dank an moroboshi)
+  </li>
+  <li>Behandlung von alternativen IBAN hinzugef&uuml;gt</li>
+ </ul>
+
+ <p>2009-08-30: Version 1.0</p>
+ <ul>
+  <li>
+   BBAN-Daten und Beispiele aktualisiert entsprechend IBAN Registry Version 15
+   (August 2009) von
+   <a href="http://www.swift.com">www.swift.com</a>
+   <ul>
+    <li>Beispiel ge&auml;ndert: Schweden</li>
+   </ul>
+  </li>
+  <li>Sektion Ableitungen aktualisiert</li>
+  <li>OpenPGP-Signatur f&uuml;r das ZIP-Archiv hinzugef&uuml;gt</li>
+ </ul>
+
+ <p>2009-11-30: Version 1.1</p>
+ <ul>
+  <li>
+   BBAN-Daten und Beispiele aktualisiert entsprechend IBAN Registry Version 16
+   (November 2009) von
+   <a href="http://www.swift.com">www.swift.com</a>
+   <ul>
+    <li>Beispiel ge&auml;ndert: F&auml;r&ouml;er, Gr&ouml;nland</li>
+   </ul>
+  </li>
+  <li>Sektion Ableitungen aktualisiert</li>
+ </ul>
+
+ <p>2010-01-31: Version 1.2</p>
+ <ul>
+  <li>
+   BBAN-Daten und Beispiele aktualisiert entsprechend IBAN Registry Version 17
+   (January 2010) von
+   <a href="http://www.swift.com">www.swift.com</a>
+   <ul>
+    <li>neues Land: Libanon (LB)</li>
+   </ul>
+  </li>
+  <li>Sektion Ableitungen aktualisiert</li>
+ </ul>
+
+ <p>2010-04-30: Version 1.3</p>
+ <ul>
+  <li>
+   BBAN-Daten und Beispiele aktualisiert entsprechend IBAN Registry Version 18
+   (May 2010) von
+   <a href="http://www.swift.com">www.swift.com</a>
+   <ul>
+    <li>neues Land: Georgien (GE)</li>
+   </ul>
+  </li>
+  <li>Umlaute in Message-Box korrigiert</li>
+  <li>Sektion Ableitungen aktualisiert</li>
+ </ul>
+
+ <p>2010-08-31: Version 1.4</p>
+ <ul>
+  <li>Links zur IBAN-Registrierungsstelle bei SWIFT aktualisiert</li>
+  <li>
+   BBAN-Daten und Beispiele aktualisiert entsprechend IBAN Registry Version 20
+   (September 2010) von
+   <a href="http://www.swift.com">www.swift.com</a>
+   <ul>
+    <li>neues Land: Mauretanien (MR)</li>
+   </ul>
+  </li>
+  <li>Sektion Ableitungen aktualisiert</li>
+ </ul>
+
+ <p>
+  2010-10-30:
+  <a href="iban-1.5.zip">Version 1.5</a>
+  <a href="iban-1.5.zip.asc">(OpenPGP-Signatur)</a>
+ </p>
+ <ul>
+  <li>
+   BBAN-Daten und Beispiele aktualisiert entsprechend IBAN Registry Version 21
+   (October 2010) von
+   <a href="http://www.swift.com">www.swift.com</a>
+   <ul>
+    <li>neue L&auml;nder: Kuwait (KW), Kasachstan (KZ)</li>
+   </ul>
+  </li>
+  <li>L&auml;nge des Eingabe-Feldes f&uuml;r die Kontonummer korrigiert</li>
+  <li>Sektion Ableitungen aktualisiert</li>
+ </ul>
+
+ <p>
+  Die Signaturen k&ouml;nnen mit meinem OpenPGP-Schl&uuml;ssel
+  <a href="http://www.toms-cafe.de/Thomas.Guenther.html#publickey">
+   0xEC0E954C</a
+  >
+  &uuml;berpr&uuml;ft werden.
+ </p>
+
+ <!-- Copyleft -->
+ <hr size="4" />
+ <a id="copyleft" name="copyleft"></a>
+ <table width="100%" cellpadding="0" cellspacing="0">
+  <tr>
+   <td>
+    <h2>Copyleft</h2>
+    <p>
+     <b>iban.de.html &amp; iban.js &amp; iban.de.js 1.5</b>
+     &copy;&nbsp;<a href="#logbook">2002-2010</a>,
+     <a href="http://www.toms-cafe.de/Thomas.Guenther.html">
+      Thomas G&uuml;nther</a
+     >
+    </p>
+   </td>
+   <td width="20%" align="center">
+    Bitte, wirf ein paar Bohnen
+    <br />
+    in die
+    <a href="http://www.toms-cafe.de/kitty/kitty.de.html">Kaffeekasse</a>.
+   </td>
+   <td width="88" align="right">
+    <a href="http://validator.w3.org/check/referer">
+     <img src="../img/valid-xhtml10.gif" width="88" height="31" border="0"
+          alt="Valid XHTML 1.0!"
+     /></a
+    >
+   </td>
+   <td>
+    <img src="/tinc?key=kormq041" width="1" height="1" border="0" alt="" />
+   </td>
+  </tr>
+ </table>
+ <p>
+  Dieses Programm ist freie Software. Sie k&ouml;nnen es unter den
+  Bedingungen der GNU General Public License, wie von der Free
+  Software Foundation ver&ouml;ffentlicht, weitergeben und/oder
+  modifizieren, entweder gem&auml;&szlig; Version 2 der Lizenz oder (nach Ihrer
+  Option) jeder sp&auml;teren Version.
+ </p>
+ <p>
+  Die Ver&ouml;ffentlichung dieses Programms erfolgt in der Hoffnung, dass
+  es Ihnen von Nutzen sein wird, aber OHNE IRGENDEINE GARANTIE, sogar
+  ohne die implizite Garantie der MARKTREIFE oder der VERWENDBARKEIT
+  F&Uuml;R EINEN BESTIMMTEN ZWECK. Details finden Sie in der GNU General
+  Public License.
+ </p>
+ <p>
+  Sie sollten eine
+  <a href="COPYING">Kopie</a>
+  der
+  <a href="http://www.gnu.org/copyleft/gpl.html">
+   GNU General Public License</a
+  >
+  zusammen mit diesem Programm erhalten haben.
+  Falls nicht, schreiben Sie an die
+  <a href="mailto:gnu@gnu.org">Free Software Foundation, Inc.</a>,
+  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ </p>
+</body>
+</html>

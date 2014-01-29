@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+ <title>IBAN - International Bank Account Number</title>
+ <link rel="shortcut icon" href="http://www.toms-cafe.de/favicon.ico" />
+ <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+
+ <script src="iban.js" type="text/javascript" language="JavaScript"></script>
+</head>
+
+<body>
+<form>
+KN:<input value="test" id="1" onchange="bn()"></input><br />
+BLZ:<input value="test" id="2" onchange="blz()"></input><br />
+IBAN:<input value="test" id="3" onclick="CreateIBAN()"></input>
+</form>
+
+<script>
+function bn(){
+document.getElementById("bank").value=document.getElementById("1").value;
+}
+function blz(){
+document.getElementById("blz").value=document.getElementById("2").value;
+}
+
+</script>
+
+
+
+
+ <form name="checkout_payment">
+<noscript>
+<b>Sorry, this program requires JavaScript!</b>
+</noscript>     
+Country:
+<script type="text/javascript" language="JavaScript">
+<!--
+WriteCountrySelectionBar();
+//-->
+</script>
+<noscript>
+<select name="country" size="1">
+<option value="Germany" selected="selected">Germany</option>
+</select>
+</noscript>
+<br/>
+Bank/Branch Code:
+<input name="banktransfer_blz" id="blz" type="text" size="11" maxlength="11"/>
+<br/>
+Account Number:
+<input name="banktransfer_number" id="bank" type="text" size="22" maxlength="22"/>
+<br/>
+International Bank Account Number (IBAN):
+<input name="banktransfer_iban" id="banktransfer_iban" type="text" size="39" maxlength="47" onclick="CreateIBAN()" />
+</form>
+</body>
+</html>
